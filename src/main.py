@@ -1,8 +1,5 @@
-from users import add_user, list_users, user_exists
+from users import add_user, list_users, user_exists, delete_user, update_user
 
-# TODO 
-# ADD Delete to menu
-# Add update to menu
 
 
 def show_menu():
@@ -10,13 +7,35 @@ def show_menu():
     print("1) Add user")
     print("2) List users")
     print("3) Search for user")
-    print("4) Exit")
+    print("4) Delete user")
+    print("5) Update user")
+    print("6) Exit")
 
 
+def handle_delete_user():
+    name = input("Enter username to delete: ")
+    success = delete_user(name)
+    if success:
+        print(f"User {name.strip()} deleted")
+    else:
+        print(f"Cloud not delete user {name.strip()} because it does not exist")
 
-# TODO 
-# ADD Delete handler
-# Add update handler
+
+def handle_update_user():
+    old_name = input("Enter current username: ").strip()
+    new_name = input("Enter new username: ").strip()
+
+    success, message = update_user(old_name, new_name)
+
+    if success:
+        print(f"User{old_name} updated to {new_name}")
+    else:
+        if message == "user not found":
+            print(f"User {old_name} does not exist")
+        elif message == "new name can not be empty":
+            print(f"New username can not be empty")
+        elif message == "name already taken":
+            print(f"User {new_name} already exists")
 
 
 def handle_add_user():
@@ -64,6 +83,10 @@ def main():
         elif choice == "3":
             handle_search_user()
         elif choice == "4":
+             handle_delete_user()
+        elif choice == "5":
+             handle_update_user()
+        elif choice == "6":
             print("Exiting program byee")
             break        
         else:
