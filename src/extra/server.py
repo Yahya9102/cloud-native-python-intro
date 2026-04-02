@@ -1,6 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from users import add_user, list_users, user_exists, delete_user, update_user
+from src.service.user_service import add_user, list_users, user_exists, delete_user, update_user
 
 
 class UserRequestHandler(BaseHTTPRequestHandler):
